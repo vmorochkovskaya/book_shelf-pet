@@ -2,7 +2,7 @@ package org.example.web.dto;
 
 public class RegisterForm {
 
-    private Integer id;
+    private String id;
     private String firstname;
     private String lastname;
     private String email;
@@ -13,7 +13,7 @@ public class RegisterForm {
     public RegisterForm() {
     }
 
-    public RegisterForm(Integer id, String firstname, String lastname, String email, String phoneNumber, String username, String password) {
+    public RegisterForm(String id, String firstname, String lastname, String email, String phoneNumber, String username, String password) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -23,11 +23,11 @@ public class RegisterForm {
         this.password = password;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

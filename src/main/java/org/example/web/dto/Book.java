@@ -1,16 +1,23 @@
 package org.example.web.dto;
 
+
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
+
 public class Book {
-    private Integer id;
+    private String id;
+    @Size(max = 30, min = 3, message = "Author name is invalid")
     private String author;
+    @Size(max = 30, min = 2, message = "Title is invalid")
     private String title;
+    @Digits(fraction = 0, integer = 5)
     private Integer size;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,11 +1,11 @@
 package org.example.app.services;
 
+import org.example.app.reposotories.ProjectRepository;
 import org.example.web.dto.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +29,7 @@ public class BookService {
         }
     }
 
-    public boolean removeBookById(Integer bookIdToRemove) {
+    public boolean removeBookById(String bookIdToRemove) {
         return bookRepo.removeItemById(bookIdToRemove);
     }
 
