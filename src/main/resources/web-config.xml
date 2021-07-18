@@ -53,4 +53,9 @@
 
     <!--    <mvc:view-controller path="/books/shelf" view-name="book_shelf"/>-->
 
+    <!--  When SpringMVC upload files, you need to configure MultipartResolver processor -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="maxUploadSize" value="5000000" />
+    </bean>
 </beans>
