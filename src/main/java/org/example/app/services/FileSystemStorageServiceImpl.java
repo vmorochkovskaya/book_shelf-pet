@@ -1,5 +1,6 @@
 package org.example.app.services;
 
+import org.example.web.dto.FileData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,6 +9,10 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.example.app.exceptions.FileNotFoundException;
 
@@ -23,6 +28,18 @@ public class FileSystemStorageServiceImpl implements IFileSystemStorageService {
         this.dirLocation = Paths.get(System.getProperty("catalina.home") + File.separator + "external_uploads").
                 toAbsolutePath()
                 .normalize();
+    }
+
+    @Override
+    public List<FileData> getAllFiles() {
+        File dir = new File(this.dirLocation.toString());
+        if (!dir.exists()) {
+            return new ArrayList();
+        }
+        return Stream.of(dir.listFiles())
+                .filter(file -> !file.isDirectory())
+                .map(f -> new FileData(f.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -57,8 +74,7 @@ public class FileSystemStorageServiceImpl implements IFileSystemStorageService {
                 toAbsolutePath();
         try {
             if (Files.exists(file)) {
-                response.setContentType("image/jpg");
-                response.addHeader("Content-Disposition", "attachment; filename=" + "cool.jpg");
+                response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
                 Files.copy(file, response.getOutputStream());
                 response.getOutputStream().flush();

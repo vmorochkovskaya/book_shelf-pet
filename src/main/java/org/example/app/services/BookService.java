@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,7 +68,7 @@ public class BookService {
 
     public List<Book> searchBookBySize(Integer sizeToSearch){
         List<Book> allBooks = this.getAllBooks();
-        return allBooks.stream().filter((Book book) -> book.getSize() == sizeToSearch).collect(Collectors.toList());
+        return allBooks.stream().filter((Book book) -> Objects.equals(book.getSize(), sizeToSearch)).collect(Collectors.toList());
     }
 
 

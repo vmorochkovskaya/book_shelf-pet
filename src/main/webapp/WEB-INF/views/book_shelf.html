@@ -17,7 +17,7 @@
         }
 
         table {
-            margin: 25px;
+            margin: 15px;
         }
 
         th {
@@ -74,11 +74,13 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/removeByAuthor}">
+    <form method="post" th:action="@{/books/removeByAuthor}" th:object="${bookAuthorToRemove}">
         <table style="float:left; margin-right:10px;">
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:name="authorToRemove">
+                    <input type="text" placeholder="author" th:field="*{author}">
+                    <p th:if="${#fields.hasErrors('author')}">Wrong author
+                    </p>
                 </td>
                 <td>
                     <input type="submit" value="remove">
@@ -87,11 +89,12 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/searchByAuthor}">
+    <form method="post" th:action="@{/books/searchByAuthor}" th:object="${bookAuthorToSearch}">
         <table style="float:left">
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:name="authorToSearch">
+                    <input type="text" placeholder="author" th:field="*{author}">
+                    <p th:if="${#fields.hasErrors('author')}">Wrong author
                 </td>
                 <td>
                     <input type="submit" value="search">
@@ -100,11 +103,12 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/removeByTitle}">
+    <form method="post" th:action="@{/books/removeByTitle}" th:object="${bookTitleToRemove}">
         <table style="float:left; margin-right:10px;">
             <tr>
                 <td>
-                    <input type="text" placeholder="title" th:name="titleToRemove">
+                    <input type="text" placeholder="title" th:field="*{title}">
+                    <p th:if="${#fields.hasErrors('title')}">Wrong title
                 </td>
                 <td>
                     <input type="submit" value="remove">
@@ -113,11 +117,12 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/searchByTitle}">
+    <form method="post" th:action="@{/books/searchByTitle}" th:object="${bookTitleToSearch}">
         <table style="float:left">
             <tr>
                 <td>
-                    <input type="text" placeholder="title" th:name="titleToSearch">
+                    <input type="text" placeholder="title" th:field="*{title}">
+                    <p th:if="${#fields.hasErrors('title')}">Wrong title
                 </td>
                 <td>
                     <input type="submit" value="search">
@@ -125,11 +130,12 @@
             </tr>
         </table>
     </form>
-    <form method="post" th:action="@{/books/removeBySize}">
+    <form method="post" th:action="@{/books/removeBySize}" th:object="${bookSizeToRemove}">
         <table style="float:left; margin-right:10px;">
             <tr>
                 <td>
-                    <input type="number" placeholder="size" th:name="sizeToRemove">
+                    <input type="number" placeholder="size" th:field="*{size}">
+                    <p th:if="${#fields.hasErrors('size')}">Wrong size
                 </td>
                 <td>
                     <input type="submit" value="remove">
@@ -138,11 +144,12 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/searchBySize}">
+    <form method="post" th:action="@{/books/searchBySize}" th:object="${bookSizeToSearch}">
         <table style="float:left">
             <tr>
                 <td>
-                    <input type="text" placeholder="size" th:name="sizeToSearch">
+                    <input type="text" placeholder="size" th:field="*{size}">
+                    <p th:if="${#fields.hasErrors('size')}">Wrong size
                 </td>
                 <td>
                     <input type="submit" value="search">
@@ -168,6 +175,9 @@
         <table>
             <tr>
                 <td>
+                    <input type="text" placeholder="file name" th:name="fileName">
+                </td>
+                <td>
                     <input type="submit" value ="Download">
                 </td>
             </tr>
@@ -175,17 +185,26 @@
     </form>
 
     <table id="books">
+    <tr>
+        <th>id</th>
+        <th>author</th>
+        <th>title</th>
+        <th>size</th>
+    </tr>
+    <tr th:each="book : ${bookList}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.size}"></td>
+    </tr>
+</table>
+
+    <table id="files">
         <tr>
-            <th>id</th>
-            <th>author</th>
-            <th>title</th>
-            <th>size</th>
+            <th>name</th>
         </tr>
-        <tr th:each="book : ${bookList}">
-            <td th:text="${book.id}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.size}"></td>
+        <tr th:each="file : ${fileList}">
+            <td th:text="${file.name}"></td>
         </tr>
     </table>
 </div>

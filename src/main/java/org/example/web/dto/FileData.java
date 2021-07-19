@@ -12,6 +12,10 @@ public class FileData {
         this.name = name;
     }
 
+    public FileData(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "FileData{" +
