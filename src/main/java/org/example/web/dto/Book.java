@@ -1,31 +1,26 @@
 package org.example.web.dto;
 
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Size;
-
 public class Book {
-    private String id;
-    @Size(max = 30, min = 3, message = "Author name is invalid")
-    private String author;
-    @Size(max = 30, min = 2, message = "Title is invalid")
+    private int id;
+    private Author author;
     private String title;
-    @Digits(fraction = 0, integer = 5)
-    private Integer size;
+    private String priceOld;
+    private String price;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -37,21 +32,30 @@ public class Book {
         this.title = title;
     }
 
-    public Integer getSize() {
-        return size;
+    public String getPriceOld() {
+        return priceOld;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
+    public void setPriceOld(String priceOld) {
+        this.priceOld = priceOld;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
-                ", size=" + size +
+                ", priceOld='" + priceOld + '\'' +
+                ", price='" + price + '\'' +
                 '}';
     }
 }

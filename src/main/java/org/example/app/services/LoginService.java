@@ -53,15 +53,15 @@ public class LoginService {
             repo.add(user);
         }
 
-        @Override
-        public boolean removeItemById(String userIdToRemove) {
-            for (RegisterForm user : retreiveAll()) {
-                if (user.getId().equals(userIdToRemove)) {
-                    logger.info("remove user completed: " + user);
-                    return repo.remove(user);
-                }
-            }
-            return false;
-        }
+//        @Override
+//        public boolean removeItemById(String userIdToRemove) {
+//            for (RegisterForm user : retreiveAll()) {
+//                if (user.getId().equals(userIdToRemove)) {
+//                    logger.info("remove user completed: " + user);
+//                    return repo.remove(user);
+//                }
+//            }
+//            return false;
+//        }
     }
 }

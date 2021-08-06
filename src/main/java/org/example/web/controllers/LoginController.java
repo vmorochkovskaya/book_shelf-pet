@@ -33,7 +33,7 @@ public class LoginController {
     public String authenticate(LoginForm loginFrom) {
         if (loginService.authenticate(loginFrom)) {
             logger.info("login OK redirect to book shelf");
-            return "redirect:/books/shelf";
+            return "redirect:/index.html";
         } else {
             logger.info("login FAIL redirect back to login");
             return "redirect:/login";
