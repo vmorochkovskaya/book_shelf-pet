@@ -9,7 +9,8 @@ On the main page click “Авторы” tab to navigate to authors page and ob
 Navigation menu is available and works on all pages.
 
 ## How to run
-* 1. * For windows execute scripts/run.cmd
-     * For linux execute scripts/run.sh
-* 2. Deploy war file
-* 3. Open localhost:8087/login
+* 
+ - For windows execute scripts/run.cmd
+ - For linux execute scripts/run.sh
+* Deploy war file
+* Open localhost:8087/login
