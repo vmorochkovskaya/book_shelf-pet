@@ -10,6 +10,6 @@ Navigation menu is available and works on all pages.
 
 ## How to run
 1. - For windows execute scripts/run.cmd
- - For linux execute scripts/run.sh
+   - For linux execute scripts/run.sh
 2. Deploy war file
 3. Open localhost:8087/login
