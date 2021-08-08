@@ -1,7 +1,7 @@
 package org.example.app.services;
 
 import org.example.app.reposotories.ProjectRepository;
-import org.example.web.dto.Author;
+import org.example.app.entities.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +19,11 @@ public class AuthorServiceImpl implements IAuthorService {
 
     @Override
     public List<Author> getAllAuthors() {
-        return authorRepo.retreiveAll();
+        return authorRepo.retrieveAll();
     }
 
     @Override
-    public boolean store(Author author) {
+    public void store(Author author) {
         authorRepo.store(author);
-        return true;
     }
 }

@@ -19,7 +19,7 @@ public class GenreServiceImpl implements IGenreService {
 
     @Override
     public List<Genre> getAllGenres() {
-        return genreRepo.retreiveAll();
+        return genreRepo.retrieveAll();
     }
 
     @Override

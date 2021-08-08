@@ -3,7 +3,7 @@ package org.example.app.reposotories;
 import java.util.List;
 
 public interface ProjectRepository<T> {
-    List<T> retreiveAll();
+    List<T> retrieveAll();
 
     void store(T book);
 }

@@ -1,7 +1,6 @@
 package org.example.app.reposotories;
 
 import org.apache.log4j.Logger;
-import org.example.web.dto.Book;
 import org.example.web.dto.Genre;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +13,7 @@ public class GenreRepository implements ProjectRepository<Genre> {
     private final List<Genre> repo = new ArrayList<>();
 
     @Override
-    public List<Genre> retreiveAll() {
+    public List<Genre> retrieveAll() {
         return new ArrayList<>(repo);
     }
 
@@ -24,9 +23,4 @@ public class GenreRepository implements ProjectRepository<Genre> {
         logger.info("store new book: " + genre);
         repo.add(genre);
     }
-
-//    @Override
-//    public boolean removeItemById(String bookIdToRemove) {
-//        return false;
-//    }
 }

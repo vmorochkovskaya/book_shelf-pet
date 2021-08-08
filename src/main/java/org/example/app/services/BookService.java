@@ -1,7 +1,7 @@
 package org.example.app.services;
 
 import org.example.app.reposotories.ProjectRepository;
-import org.example.web.dto.Book;
+import org.example.app.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,6 @@ public class BookService {
     }
 
     public List<Book> getAllBooks() {
-        return bookRepo.retreiveAll();
+        return bookRepo.retrieveAll();
     }
 }

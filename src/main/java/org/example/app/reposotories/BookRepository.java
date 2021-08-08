@@ -1,8 +1,8 @@
 package org.example.app.reposotories;
 
 import org.apache.log4j.Logger;
-import org.example.web.dto.Author;
-import org.example.web.dto.Book;
+import org.example.app.entities.Author;
+import org.example.app.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,8 @@ import java.util.List;
 
 @Repository
 public class BookRepository implements ProjectRepository<Book> {
-
+    private static final String SELECT_BOOK_DATA_QUERY = "select title, priceOld, price, authors.name as author from books\n" +
+            "inner join authors on books.idAuthor = authors.id";
     private final Logger logger = Logger.getLogger(BookRepository.class);
     private final List<Book> repo = new ArrayList<>();
     private JdbcTemplate jdbcTemplate;
@@ -24,9 +25,8 @@ public class BookRepository implements ProjectRepository<Book> {
     }
 
     @Override
-    public List<Book> retreiveAll() {
-        List<Book> bookList = jdbcTemplate.query("select title, priceOld, price, authors.name as author from books\n" +
-                "inner join authors on books.idAuthor = authors.id", (ResultSet rs, int rowNum) -> {
+    public List<Book> retrieveAll() {
+        List<Book> bookList = jdbcTemplate.query(SELECT_BOOK_DATA_QUERY, (ResultSet rs, int rowNum) -> {
             Book book = new Book();
             book.setTitle(rs.getString("title"));
             book.setPriceOld(rs.getString("priceOld"));

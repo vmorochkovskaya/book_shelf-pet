@@ -1,5 +1,7 @@
 package org.example.app.services;
 
+import org.apache.log4j.Logger;
+import org.example.web.controllers.RegisterController;
 import org.example.web.dto.FileData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class FileSystemStorageServiceImpl implements IFileSystemStorageService {
     private final Path dirLocation;
+    private final Logger logger = Logger.getLogger(RegisterController.class);
+    private static final int AMOUNT_OF_BYTES_TO_READ = 4096;
 
     @Autowired
     public FileSystemStorageServiceImpl() {
@@ -34,12 +38,19 @@ public class FileSystemStorageServiceImpl implements IFileSystemStorageService {
     public List<FileData> getAllFiles() {
         File dir = new File(this.dirLocation.toString());
         if (!dir.exists()) {
-            return new ArrayList();
+            return new ArrayList<>();
         }
-        return Stream.of(dir.listFiles())
-                .filter(file -> !file.isDirectory())
-                .map(f -> new FileData(f.getName()))
-                .collect(Collectors.toList());
+
+        File[] dirFiles = dir.listFiles();
+        if (dirFiles != null) {
+            return Stream.of(dirFiles)
+                    .filter(file -> !file.isDirectory())
+                    .map(f -> new FileData(f.getName()))
+                    .collect(Collectors.toList());
+        } else {
+            logger.warn(String.format("Something went wrong while trying to find files in  %1$s", dir));
+            return new ArrayList<>();
+        }
     }
 
     @Override
@@ -83,7 +94,7 @@ public class FileSystemStorageServiceImpl implements IFileSystemStorageService {
             }
             // get output stream of the response
             try (OutputStream outStream = response.getOutputStream()) {
-                byte[] buffer = new byte[4096];
+                byte[] buffer = new byte[AMOUNT_OF_BYTES_TO_READ];
                 int bytesRead;
 // write bytes read from the input stream into the output stream
                 try (FileInputStream fi = new FileInputStream(fullPath)) {

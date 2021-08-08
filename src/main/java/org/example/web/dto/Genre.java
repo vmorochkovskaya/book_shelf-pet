@@ -1,6 +1,5 @@
 package org.example.web.dto;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
 public class Genre {

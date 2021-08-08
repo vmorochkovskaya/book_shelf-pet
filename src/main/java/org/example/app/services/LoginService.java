@@ -25,7 +25,7 @@ public class LoginService {
 
     public boolean authenticate(LoginForm loginFrom) {
         logger.info("try auth with user-form: " + loginFrom);
-        for(RegisterForm user : userRepo.retreiveAll()){
+        for(RegisterForm user : userRepo.retrieveAll()){
             if(loginFrom.getUsername().equals(user.getUsername()) && loginFrom.getPassword().equals(user.getPassword())){
                 return true;
             }
@@ -43,7 +43,7 @@ public class LoginService {
         private final List<RegisterForm> repo = new ArrayList<>();
 
         @Override
-        public List<RegisterForm> retreiveAll() {
+        public List<RegisterForm> retrieveAll() {
            return new ArrayList<>(repo);
         }
 
@@ -52,16 +52,5 @@ public class LoginService {
             logger.info("store new user: " + user);
             repo.add(user);
         }
-
-//        @Override
-//        public boolean removeItemById(String userIdToRemove) {
-//            for (RegisterForm user : retreiveAll()) {
-//                if (user.getId().equals(userIdToRemove)) {
-//                    logger.info("remove user completed: " + user);
-//                    return repo.remove(user);
-//                }
-//            }
-//            return false;
-//        }
     }
 }

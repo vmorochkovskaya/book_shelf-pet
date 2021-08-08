@@ -1,4 +1,4 @@
-package org.example.web.dto;
+package org.example.app.entities;
 
 import javax.validation.constraints.Size;
 
