@@ -15,7 +15,7 @@ insert into genres (name) values ('Genre 3');
 insert into genres (name) values ('Genre 4');
 
 insert into books (idAuthor, idGenre, title, priceOld, price) values (1, 1, 'exploit real-time e-commerce', '$203.23', '$43.37');
-insert into books (idAuthor, idGenre, title, priceOld, price) values (2, 1, 'utilize real-time interfaces', '$260.31', '$35.96');
+insert into books (idAuthor, idGenre, title, priceOld, price) values (2, 1, 'utilize real-time interfaces', '$260.31', '$260.31');
 insert into books (idAuthor, idGenre, title, priceOld, price) values (3, 3, 'extend strategic e-services', '$272.00', '$151.04');
 insert into books (idAuthor, idGenre, title, priceOld, price) values (4, 2, 'iterate integrated solutions', '$271.58', '$141.40');
 insert into books (idAuthor, idGenre, title, priceOld, price) values (5, 2, 'cultivate magnetic e-commerce', '$278.43', '$54.44');

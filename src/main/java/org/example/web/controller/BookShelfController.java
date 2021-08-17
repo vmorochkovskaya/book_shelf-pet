@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/")
 public class BookShelfController {
 
     private Logger logger = Logger.getLogger(BookShelfController.class);
@@ -21,12 +23,36 @@ public class BookShelfController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/index.html")
-    public String books(Model model) {
+    @GetMapping("/")
+    public String books() {
         logger.info("got book shelf");
-        model.addAttribute("book", new BookDto());
-        model.addAttribute("bookList", bookService.getAllBooks());
         return "index";
+    }
+
+    @GetMapping("/books/recent")
+    public String booksRecent() {
+        logger.info("got book shelf");
+        return "books/recent";
+    }
+
+    @GetMapping("/books/popular")
+    public String booksPopular(){
+        return "books/popular";
+    }
+
+    @GetMapping("/postponed")
+    public String postponed(){
+        return "postponed";
+    }
+
+    @GetMapping("/search")
+    public String search(){
+        return "search/index";
+    }
+
+    @ModelAttribute("bookList")
+    public List<BookDto> bookList(){
+        return bookService.getAllBooks();
     }
 
 }

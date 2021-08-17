@@ -8,12 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/authors")
 public class AuthorController {
     private Logger logger = Logger.getLogger(AuthorController.class);
     private final IAuthorService authorService;
@@ -22,11 +21,11 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/index.html")
+    @GetMapping("/authors")
     public String genres(Model model) {
         logger.info("authors");
-        model.addAttribute("author", new Author());
-        model.addAttribute("authorList", authorService.getAllAuthors());
+//        model.addAttribute("author", new Author());
+//        model.addAttribute("authorList", authorService.getAllAuthors());
         return "authors/index";
     }
 
@@ -39,6 +38,6 @@ public class AuthorController {
         }
         authorService.store(author);
         logger.info("current repository size: " + authorService.getAllAuthors().size());
-        return "redirect:/authors/index.html";
+        return "redirect:/authors";
     }
 }

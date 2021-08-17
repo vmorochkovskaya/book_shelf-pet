@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping(value = "/genres")
 public class GenreController {
 
     private Logger logger = Logger.getLogger(GenreController.class);
@@ -20,11 +19,11 @@ public class GenreController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/index.html")
+    @GetMapping("/genres")
     public String genres(Model model) {
         logger.info("genres");
-        model.addAttribute("genre", new Genre());
-        model.addAttribute("genreList", genreService.getAllGenres());
+//        model.addAttribute("genre", new Genre());
+//        model.addAttribute("genreList", genreService.getAllGenres());
         return "genres/index";
     }
 }
