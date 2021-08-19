@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AuthorController {
@@ -22,11 +25,14 @@ public class AuthorController {
     }
 
     @GetMapping("/authors")
-    public String genres(Model model) {
+    public String authots(Model model) {
         logger.info("authors");
-//        model.addAttribute("author", new Author());
-//        model.addAttribute("authorList", authorService.getAllAuthors());
         return "authors/index";
+    }
+
+    @ModelAttribute("authorsMap")
+    public Map<String, List<Author>> authorList() {
+        return authorService.getAuthorsMap();
     }
 
     @PostMapping("/save")

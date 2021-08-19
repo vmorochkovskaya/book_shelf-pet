@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <div th:fragment="block" class="row-block"><a class="logo logo_footer Footer-logo" th:href="@{/}" href="/"><img class="logo-image"
                                                                                             src="/assets/img/logo_footer.png"
                                                                                             alt="logo_footer.png"/><span
@@ -65,5 +67,25 @@
         </li>
 
     </ul>
+    <p>
+        <span th:text="#{footer.lang}">Выбор языка</span>
+        <select id="locales">
+            <option value=" "></option>
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+        </select>
+    </p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("document").ready(function(){
+            $("#locales").change(function(){
+                let selectedOption= $("#locales").val();
+                if(selectedOption !== ''){
+                    window.location.replace("?lang="+ selectedOption);
+                }
+            });
+        });
+    </script>
 </div>
+
 </html>

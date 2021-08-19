@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements IAuthorService {
@@ -20,6 +22,11 @@ public class AuthorServiceImpl implements IAuthorService {
     @Override
     public List<Author> getAllAuthors() {
         return authorRepo.retrieveAll();
+    }
+
+    public Map<String, List<Author>> getAuthorsMap() {
+        return getAllAuthors().stream().collect(Collectors.groupingBy((Author a) -> a.getName().substring(0, 1)
+        ));
     }
 
     @Override

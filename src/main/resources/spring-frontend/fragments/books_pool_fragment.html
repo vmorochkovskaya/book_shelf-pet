@@ -3,7 +3,6 @@
 <div class="Cards Cards_refresh" th:fragment="pool">
     <div class="Card" th:each="book : ${bookList}">
         <div class="Card-picture"><a href="#"><img src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
-            <div class ="Card-sale"></div>
         </div>
         <div class="Card-content">
             <strong class="Card-title" th:text="${book.title}"><a href="#"></a>
@@ -17,7 +16,7 @@
         </div>
     </div>
     <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" th:attr="data-refreshshow = ${category}" data-refreshshow="recent"
-                                                     data-refreshoffset="20" data-refreshlimit="20">Показать еще</a>
+                                                     data-refreshoffset="20" data-refreshlimit="20" th:text="#{popular.button.showMore}">Показать еще</a>
     </div>
 </div>
 </html>
