@@ -33,6 +33,11 @@ public class BookShelfController {
         return "books/recent";
     }
 
+    @GetMapping("/books/author")
+    public String booksOfAuthor() {
+        return "books/author";
+    }
+
     @GetMapping("/books/popular")
     public String booksPopular(){
         return "books/popular";

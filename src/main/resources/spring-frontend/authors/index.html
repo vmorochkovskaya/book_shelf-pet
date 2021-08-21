@@ -32,7 +32,7 @@
                         <h2 class="Authors-title" id="a" th:id="${#strings.toLowerCase(authorEntry.key)}" th:text="${#strings.toUpperCase(authorEntry.key)}">А
                         </h2>
                         <div class="Authors-letter">
-                            <div class="Authors-item" th:each="author: ${authorEntry.value}"><a href="/authors/slug.html" th:text="${author.name}">Абгарян Наринэ</a>
+                            <div class="Authors-item" th:each="author: ${authorEntry.value}"><a th:href="@{/authors/slug}" href="/authors/slug.html" th:text="${author.name}">Абгарян Наринэ</a>
                             </div>
                         </div>
                         </div>

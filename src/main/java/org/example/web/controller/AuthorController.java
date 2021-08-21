@@ -25,15 +25,22 @@ public class AuthorController {
     }
 
     @GetMapping("/authors")
-    public String authots(Model model) {
+    public String authors() {
         logger.info("authors");
         return "authors/index";
+    }
+
+    @GetMapping("/authors/slug")
+    public String authorsSlug() {
+        logger.info("authors/slug");
+        return "authors/slug";
     }
 
     @ModelAttribute("authorsMap")
     public Map<String, List<Author>> authorList() {
         return authorService.getAuthorsMap();
     }
+
 
     @PostMapping("/save")
     public String save(@Valid Author author, BindingResult bindingResult, Model model) {
