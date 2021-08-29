@@ -1,7 +1,7 @@
 package org.example.web.controller;
 
 import org.apache.log4j.Logger;
-import org.example.app.entity.Genre;
+import org.example.app.entity.genre.Genre;
 import org.example.app.service.IGenreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

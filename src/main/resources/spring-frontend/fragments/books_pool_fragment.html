@@ -3,15 +3,17 @@
 <div class="Cards Cards_refresh" th:fragment="pool">
     <div class="Card" th:each="book : ${bookList}">
         <div class="Card-picture"><a href="#"><img src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
+        <div th:if="${book.discount > 0}" th:text="${book.discount} + '%'" class="Card-sale">
+        </div>
         </div>
         <div class="Card-content">
             <strong class="Card-title" th:text="${book.title}"><a href="#"></a>
             </strong>
-            <div class="Card-description" th:text="${book.author}">
+            <div class="Card-description" th:text="${book.book2Authors[0].author}">
             </div>
             <div class="Card-cost">
-                <span class="Card-priceOld" th:if="${not #strings.equals(book.priceOld, book.price) and not #strings.isEmpty(book.priceOld)}" th:text="${book.priceOld}"></span>
-                <span class="Card-price" th:text="${book.price}"></span>
+                <span class="Card-price" th:if="${book.discount > 0}" th:text="${book.price - book.price * book.discount / 100}"></span>
+                <span class="Card-priceOld" th:text="${book.price}"></span>
             </div>
         </div>
     </div>

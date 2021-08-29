@@ -1,7 +1,7 @@
 package org.example.app.service;
 
-import org.example.app.repository.ProjectRepository;
-import org.example.app.entity.Genre;
+import org.example.app.repository.GenreRepository;
+import org.example.app.entity.genre.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,22 +9,21 @@ import java.util.List;
 
 @Service
 public class GenreServiceImpl implements IGenreService {
-    private final ProjectRepository<Genre> genreRepo;
+    private final GenreRepository genreRepo;
 
     @Autowired
-    public GenreServiceImpl(ProjectRepository<Genre> genreRepo) {
+    public GenreServiceImpl(GenreRepository genreRepo) {
         this.genreRepo = genreRepo;
     }
 
 
     @Override
     public List<Genre> getAllGenres() {
-        return genreRepo.retrieveAll();
+        return genreRepo.findAll();
     }
 
     @Override
-    public boolean store(Genre genre) {
-        genreRepo.store(genre);
-        return true;
+    public void store(Genre genre) {
+       genreRepo.save(genre);
     }
 }

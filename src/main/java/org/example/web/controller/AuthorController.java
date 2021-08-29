@@ -2,7 +2,7 @@ package org.example.web.controller;
 
 import org.apache.log4j.Logger;
 import org.example.app.service.IAuthorService;
-import org.example.app.entity.Author;
+import org.example.app.entity.author.Author;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

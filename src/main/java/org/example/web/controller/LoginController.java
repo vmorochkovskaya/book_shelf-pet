@@ -36,15 +36,4 @@ public class LoginController {
             return "redirect:/login";
         }
     }
-
-//    @PostMapping("/signin")
-//    public String signin(LoginFormDto loginFrom) {
-//        if (loginService.authenticate(loginFrom)) {
-//            logger.info("login OK redirect to book shelf");
-//            return "redirect:/index.html";
-//        } else {
-//            logger.info("login FAIL redirect back to login");
-//            return "redirect:/login";
-//        }
-//    }
 }

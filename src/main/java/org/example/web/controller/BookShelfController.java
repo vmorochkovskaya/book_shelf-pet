@@ -1,8 +1,8 @@
 package org.example.web.controller;
 
 import org.apache.log4j.Logger;
+import org.example.app.entity.book.Book;
 import org.example.app.service.BookService;
-import org.example.web.dto.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,8 +54,7 @@ public class BookShelfController {
     }
 
     @ModelAttribute("bookList")
-    public List<BookDto> bookList(){
+    public List<Book> bookList(){
         return bookService.getAllBooks();
     }
-
 }
