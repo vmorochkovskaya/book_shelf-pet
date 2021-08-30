@@ -4,5 +4,25 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include  file="db/changelog/book/book.xml"/>
+    <include  file="db/changelog/author/author.xml"/>
+    <include  file="db/changelog/book/link/book2author.xml"/>
+    <include  file="db/changelog/genre/genre.xml"/>
+    <include  file="db/changelog/book/link/book2genre.xml"/>
+    <include  file="db/changelog/tag/tag.xml"/>
+    <include  file="db/changelog/book/link/book2tag.xml"/>
+    <include  file="db/changelog/user/user.xml"/>
+    <include  file="db/changelog/book/link/book2user_type.xml"/>
+    <include  file="db/changelog/book/link/book2user.xml"/>
+    <include  file="db/changelog/book/file/file_download.xml"/>
+    <include  file="db/changelog/payment/balance_transaction.xml"/>
+    <include  file="db/changelog/review/book_review.xml"/>
+    <include  file="db/changelog/user/user_contact.xml"/>
+    <include  file="db/changelog/review/book_review_like.xml"/>
+    <include  file="db/changelog/review/message.xml"/>
+    <include  file="db/changelog/book/file/book_file.xml"/>
+    <include  file="db/changelog/book/file/book_file_type.xml"/>
+    <include  file="db/changelog/other/document.xml"/>
+    <include  file="db/changelog/other/faq.xml"/>
     <include  file="db/changelog/liquibase-outputChangeLog_init.xml"/>
 </databaseChangeLog>

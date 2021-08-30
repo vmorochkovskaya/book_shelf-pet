@@ -1,0 +1,44 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="VMOROCHKOVSKAYA" id="15">
+        <createTable tableName="book_review_like" remarks="Likes and dislikes of reviews">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="book_review_like_id"/>
+            </column>
+            <column name="review_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="SMALLINT" remarks="like (1) or dislike (-1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addColumn tableName="book_review_like">
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="book_review_like"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk-book_review_like-0"
+                                 referencedTableName="user_entity"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="book_review_like"
+                                 baseColumnNames="review_id"
+                                 constraintName="fk-book_review_like-1"
+                                 referencedTableName="book_review"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+    </changeSet>
+</databaseChangeLog>

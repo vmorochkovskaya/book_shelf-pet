@@ -1,42 +1,31 @@
 package org.example.app.entity.book.links;
 
+import lombok.*;
+import org.example.app.entity.enums.Book2UserTypeEnum;
+
 import javax.persistence.*;
+
+@Data
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "book2user_type")
 public class Book2UserType {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(columnDefinition = "INT NOT NULL AUTO_INCREMENT")
+//  id связи типа книги к юзеру
+    private Integer id;
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+//  код типа привязки
     private String code;
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//  наименование типа привязки
+    @Enumerated(EnumType.STRING)
+    private Book2UserTypeEnum name;
 }

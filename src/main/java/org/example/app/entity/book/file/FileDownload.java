@@ -1,53 +1,34 @@
 package org.example.app.entity.book.file;
 
+import lombok.*;
+
 import javax.persistence.*;
+
+@Data
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "file_download")
 public class FileDownload {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+//  идентификатор связи количества скачиваний книги юзером
+    private Integer id;
 
-    @Column(columnDefinition = "INT NOT NULL")
-    private int userId;
-
-    @Column(columnDefinition = "INT NOT NULL")
-    private int bookId;
+    @Column(name = "book_id",
+            columnDefinition = "INT NOT NULL")
+//  идентификатор скачанной книги
+    private Integer bookId;
 
     @Column(columnDefinition = "INT NOT NULL DEFAULT 1")
-    private int count;
+//  количество скачиваний
+    private Integer count;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
+    @Column(name = "user_id",
+            columnDefinition = "INT NOT NULL")
+//  идентификатор пользователя, скачавшего книгу
+    private Integer userId;
 }

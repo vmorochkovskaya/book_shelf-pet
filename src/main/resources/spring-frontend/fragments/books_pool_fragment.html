@@ -9,7 +9,9 @@
         <div class="Card-content">
             <strong class="Card-title" th:text="${book.title}"><a href="#"></a>
             </strong>
-            <div class="Card-description" th:text="${book.book2Authors[0].author}">
+            <div th:each="author : ${book.authors}">
+            <div class="Card-description" th:text="${author.name}">
+            </div>
             </div>
             <div class="Card-cost">
                 <span class="Card-price" th:if="${book.discount > 0}" th:text="${book.price - book.price * book.discount / 100}"></span>

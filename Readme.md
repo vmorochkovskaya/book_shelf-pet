@@ -10,8 +10,7 @@ Java, maven, Spring boot, Spring JPA, liquibase, postgre database, thymeleaf
 
 ## How to run
 1. Update spring.datasource.url, spring.datasource.username, spring.datasource.password in resource/application.properties file with your url, username and password accordingly.
-2. Update url in resources/liquibase.properties with your database url
-3. - For windows execute scripts/run.cmd
+2. - For windows execute scripts/run.cmd
    - For linux execute scripts/run.sh
-4. Deploy war file
-5. Open localhost:8087/books/popular
+3. Deploy war file
+4. Open localhost:8087

@@ -1,65 +1,41 @@
 package org.example.app.entity.book.review;
 
+import lombok.*;
+import org.example.app.entity.user.UserEntity;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+@Data
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "book_review_like")
 public class BookReviewLike {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(columnDefinition = "INT NOT NULL")
-    private int reviewId;
-
-    @Column(columnDefinition = "INT NOT NULL")
-    private int userId;
+    private Integer id;
 
     @Column(columnDefinition = "TIMESTAMP NOT NULL")
+//  дата и время, в которое поставлен лайк или дизлайк
     private LocalDateTime time;
 
     @Column(columnDefinition = "SMALLINT NOT NULL")
-    private short value;
+//  лайк (1) или дизлайк (-1)
+    private Short value;
 
-    public int getId() {
-        return id;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",
+            referencedColumnName = "id")
+//  идентификатор пользователя, поставившего лайк или дизлайк
+    private UserEntity user;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public short getValue() {
-        return value;
-    }
-
-    public void setValue(short value) {
-        this.value = value;
-    }
+    @ManyToOne
+    @JoinColumn(name = "review_id",
+            columnDefinition = "INT NOT NULL")
+//  идентификатор отзыва
+    private BookReview bookReview;
 }

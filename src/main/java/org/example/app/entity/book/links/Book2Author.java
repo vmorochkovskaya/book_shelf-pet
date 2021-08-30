@@ -1,28 +1,33 @@
 package org.example.app.entity.book.links;
 
-import lombok.Data;
-import org.example.app.entity.author.Author;
-import org.example.app.entity.book.Book;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+
 @Entity
 @Table(name = "book2author")
 public class Book2Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(columnDefinition = "INT NOT NULL AUTO_INCREMENT")
+//  id связи
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @Column(name = "book_id", columnDefinition = "INT NOT NULL")
+//  идентификатор книги
+    private Integer bookId;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Author author;
+    @Column(name = "author_id", columnDefinition = "INT NOT NULL")
+//  идентификатор автора
+    private Integer authorId;
 
-    @Column(columnDefinition = "INT NOT NULL  DEFAULT 0")
-    private int sortIndex;
+    @Column(name = "sort_index", columnDefinition = "INT NOT NULL  DEFAULT 0")
+//  порядковый номер автора
+    private Integer sortIndex;
 }

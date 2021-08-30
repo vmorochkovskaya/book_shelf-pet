@@ -1,65 +1,46 @@
 package org.example.app.entity.book.review;
 
+import lombok.*;
+import org.example.app.entity.book.Book;
+import org.example.app.entity.user.UserEntity;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "book_review")
 public class BookReview {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(columnDefinition = "INT NOT NULL")
-    private int bookId;
-
-    @Column(columnDefinition = "INT NOT NULL")
-    private int userId;
-
-    @Column(columnDefinition = "TIMESTAMP NOT NULL")
-    private LocalDateTime time;
+    private Integer id;
 
     @Column(columnDefinition = "TEXT NOT NULL")
+//  текст отзыва
     private String text;
 
-    public int getId() {
-        return id;
-    }
+    @Column(columnDefinition = "TIMESTAMP NOT NULL")
+//  время, когда оставлен отзыв
+    private LocalDateTime time;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @JoinColumn(name = "user_id",
+            columnDefinition = "INT NOT NULL")
+//  идентификатор пользователя, который написал данный отзыв
+    @ManyToOne
+    private UserEntity user;
 
-    public int getBookId() {
-        return bookId;
-    }
+    @JoinColumn(name = "book_id",
+            columnDefinition = "INT NOT NULL")
+//  идентификатор книги на которую ставится отзыв
+    @ManyToOne
+    private Book book;
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
+    @OneToMany(mappedBy = "bookReview")
+    private List<BookReviewLike> bookReviewLikeList;
 }

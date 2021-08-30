@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="VMOROCHKOVSKAYA" id="11">
+        <createTable tableName="file_download" remarks="Number of book downloads by user">
+            <column autoIncrement="true" name="id" type="INT" remarks="link identifier of the number of downloads of the book by the user">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="file_download_id"/>
+            </column>
+            <column name="book_id" type="INT" remarks="downloaded book id">
+            </column>
+            <column name="count" type="INT" remarks="downloads number" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT" remarks="the ID of the user who downloaded the book">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="file_download"
+                                 baseColumnNames="book_id"
+                                 constraintName="fk-file_download-0"
+                                 referencedTableName="book"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="file_download"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk-file_download-1"
+                                 referencedTableName="user_entity"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"/>
+    </changeSet>
+</databaseChangeLog>
