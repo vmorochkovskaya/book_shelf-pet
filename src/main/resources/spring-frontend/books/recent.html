@@ -38,7 +38,7 @@
                                    autocomplete="off"/>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">по
+                            <label class="form-label">
                             </label>
                             <input class="form-input form-input_date form-input_date_uninit" id="enddaterecent"
                                    name="enddaterecent" type="text" placeholder="Дата" data-refreshoffset="20"
@@ -48,7 +48,7 @@
                     </form>
                 </div>
                 <div class="Cards Cards_refresh"
-                     th:replace="~{fragments/books_pool_fragment :: pool(category='recent')}"></div>
+                     th:replace="~{fragments/books_pool_fragment :: pool(category='recent', list=${recentBooksSeparatePage})}"></div>
             </div>
         </main>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="Cards Cards_refresh" th:fragment="pool">
-    <div class="Card" th:each="book : ${bookList}">
+    <div class="Card" th:each="book : ${list}">
         <div class="Card-picture"><a href="#"><img src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
         <div th:if="${book.discount > 0}" th:text="${book.discount} + '%'" class="Card-sale">
         </div>

@@ -24,5 +24,6 @@
     <include  file="db/changelog/book/file/book_file_type.xml"/>
     <include  file="db/changelog/other/document.xml"/>
     <include  file="db/changelog/other/faq.xml"/>
+    <include  file="db/changelog/book/book_add_statistic_columns.xml"/>
     <include  file="db/changelog/liquibase-outputChangeLog_init.xml"/>
 </databaseChangeLog>

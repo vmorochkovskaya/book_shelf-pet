@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import lombok.*;
 
 @Data
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 

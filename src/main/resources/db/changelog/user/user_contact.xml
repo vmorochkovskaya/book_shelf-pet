@@ -27,6 +27,9 @@
             <column name="user_id" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="approved" type="SMALLINT" remarks="if contact is approved (0 or 1)">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
         <addForeignKeyConstraint baseTableName="user_contact"
                                  baseColumnNames="user_id"
