@@ -46,13 +46,4 @@ public class BookService {
         }
         return bookRepo.findAll(nextPage);
     }
-
-    public Page<Book> getPageOfRecentBooksSortedByPubBaseDesc(Integer offset, Integer limit) {
-        Pageable nextPage = PageRequest.of(offset, limit, Sort.by("pubDate").descending());
-        return bookRepo.findAll(nextPage);
-    }
-
-    public Page<Book> getPageOfPopularBooks(Integer offset, Integer limit) {
-        return getPageOfRecommendedBooks(offset, limit);
-    }
 }

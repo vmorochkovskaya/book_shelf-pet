@@ -2,7 +2,10 @@ package org.example.web.controller;
 
 import org.apache.log4j.Logger;
 import org.example.app.entity.book.Book;
+import org.example.app.entity.tag.Tag;
+import org.example.app.service.TagService;
 import org.example.app.service.book.BookService;
+import org.example.app.service.book.BooksRatingAndPopularityService;
 import org.example.web.dto.BooksPageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,14 @@ public class BookShelfController {
 
     private Logger logger = Logger.getLogger(BookShelfController.class);
     private final BookService bookService;
+    private final BooksRatingAndPopularityService booksRatingAndPopularityService;
+    private final TagService tagService;
 
     @Autowired
-    public BookShelfController(BookService bookService) {
+    public BookShelfController(BookService bookService, BooksRatingAndPopularityService booksRatingAndPopularityService, TagService tagService) {
         this.bookService = bookService;
+        this.booksRatingAndPopularityService = booksRatingAndPopularityService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/")
@@ -63,7 +70,7 @@ public class BookShelfController {
     @ResponseBody
     public BooksPageDto getBooksPopular2Page(@RequestParam("offset") Integer offset,
                                              @RequestParam("limit") Integer limit) {
-        return new BooksPageDto(bookService.getPageOfPopularBooks(offset, limit).getContent());
+        return new BooksPageDto(booksRatingAndPopularityService.getPopularBooksSortedByPopularityDesc(offset, limit));
     }
 
     @GetMapping("/postponed")
@@ -93,16 +100,21 @@ public class BookShelfController {
 
     @ModelAttribute("popularBooks")
     public List<Book> popularBooks() {
-        return bookService.getPageOfPopularBooks(0, 6).getContent();
+        return booksRatingAndPopularityService.getPopularBooksSortedByPopularityDesc(0, 6);
     }
 
     @ModelAttribute("popularBooksSeparatePage")
     public List<Book> popularBooksSeparatePage() {
-        return bookService.getPageOfPopularBooks(0, 20).getContent();
+        return booksRatingAndPopularityService.getPopularBooksSortedByPopularityDesc(0, 20);
     }
 
     @ModelAttribute("recentBooksSeparatePage")
     public List<Book> recentBooksSeparatePage() {
-        return bookService.getPageOfRecentBooksSortedByPubBaseDesc(0, 20).getContent();
+        return bookService.getPageOfRecentBooks(0, 20).getContent();
+    }
+
+    @ModelAttribute("tags")
+    public List<Tag> getAllTags() {
+        return tagService.getAllTags();
     }
 }

@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 
