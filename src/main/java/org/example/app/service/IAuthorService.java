@@ -9,5 +9,6 @@ public interface IAuthorService {
     List<Author> getAllAuthors();
     void store(Author genre);
     Map<String,List<Author>> getAuthorsMap();
+    Author getAuthorById(Integer id);
 }
 

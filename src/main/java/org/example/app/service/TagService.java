@@ -19,4 +19,8 @@ public class TagService {
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
     }
+
+    public Tag getTagById(Integer id) {
+        return tagRepository.findTagById(id);
+    }
 }

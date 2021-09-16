@@ -3,37 +3,34 @@ package org.example.web.controller;
 import org.apache.log4j.Logger;
 import org.example.app.service.IAuthorService;
 import org.example.app.entity.author.Author;
+import org.example.app.service.book.BookService;
+import org.example.web.dto.BooksPageDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class AuthorController {
     private Logger logger = Logger.getLogger(AuthorController.class);
     private final IAuthorService authorService;
+    private final BookService bookService;
 
-    public AuthorController(IAuthorService authorService) {
+    public AuthorController(IAuthorService authorService, BookService bookService) {
         this.authorService = authorService;
+        this.bookService = bookService;
     }
 
     @GetMapping("/authors")
     public String authors() {
         logger.info("authors");
         return "authors/index";
-    }
-
-    @GetMapping("/authors/slug")
-    public String authorsSlug() {
-        logger.info("authors/slug");
-        return "authors/slug";
     }
 
     @ModelAttribute("authorsMap")
@@ -52,5 +49,21 @@ public class AuthorController {
         authorService.store(author);
         logger.info("current repository size: " + authorService.getAllAuthors().size());
         return "redirect:/authors";
+    }
+
+    @GetMapping("/authors/slug")
+    public String getBooksByAuthor(@RequestParam("id") Integer id, Model model) {
+        Author author = authorService.getAuthorById(id);
+        model.addAttribute("authorName", author.getName());
+        model.addAttribute("authorId", id);
+        model.addAttribute("authorBooks", author.getBooks().stream().skip(0).limit(6).collect(Collectors.toList()));
+        return "authors/slug";
+    }
+
+    @GetMapping("/books/author/{id}")
+    @ResponseBody
+    public BooksPageDto getNextBooksByAuthor(@RequestParam("offset") Integer offset,
+                                             @RequestParam("limit") Integer limit, @PathVariable(value = "id") Integer id) {
+        return new BooksPageDto(bookService.getBooksByAuthorId(id, offset, limit).getContent());
     }
 }

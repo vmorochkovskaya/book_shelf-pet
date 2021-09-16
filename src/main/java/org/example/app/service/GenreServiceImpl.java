@@ -26,4 +26,9 @@ public class GenreServiceImpl implements IGenreService {
     public void store(Genre genre) {
        genreRepo.save(genre);
     }
+
+    @Override
+    public Genre getGenreById(Integer id) {
+        return genreRepo.findGenreById(id);
+    }
 }

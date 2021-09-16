@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" th:attr="data-refreshshow = ${category}" data-refreshshow="recent"
+    <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" th:attr="data-refreshshow = ${category},data-refreshid=${searchCriteriaId}" data-refreshshow="recent"
                                                      data-refreshoffset="20" data-refreshlimit="20" th:text="#{popular.button.showMore}">Показать еще</a>
     </div>
 </div>

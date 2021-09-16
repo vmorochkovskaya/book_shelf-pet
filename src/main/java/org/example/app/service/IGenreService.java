@@ -7,4 +7,5 @@ import java.util.List;
 public interface IGenreService {
     List<Genre> getAllGenres();
     void store(Genre genre);
+    Genre getGenreById(Integer id);
 }

@@ -11,4 +11,10 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     Page<Book> findBooksByPubDateBetween(LocalDate from, LocalDate to, Pageable p);
 
+    Page<Book> findBooksByTagsId(Integer tagId, Pageable p);
+
+    Page<Book> findBooksByAuthorsId(Integer tagId, Pageable p);
+
+    Page<Book> findBooksByGenresId(Integer tagId, Pageable p);
+
 }

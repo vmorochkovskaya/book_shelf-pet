@@ -3,13 +3,13 @@
 <div class="Tags" id="tags" th:fragment="cloud">
     <div class="Tag" th:each="tag : ${tags}">
     <div class="Tag Tag_xs" th:if="${tag.books.size() < 2}" >
-        <a href="/tags/index.html" th:text="${tag.name}">современная литература</a>
+        <a href="/tags/index.html" th:href="@{/books/tag-view(id=${tag.id})}" th:text="${tag.name}">современная литература</a>
     </div>
         <div class="Tag Tag_md" th:if="${tag.books.size() >= 2 && tag.books.size() < 10}" >
-            <a href="/tags/index.html" th:text="${tag.name}">современная литература</a>
+            <a href="/tags/index.html" th:href="@{/books/tag-view(id=${tag.id})}" th:text="${tag.name}">современная литература</a>
         </div>
         <div class="Tag Tag_lg" th:if="${tag.books.size() >= 10}" >
-            <a href="/tags/index.html" th:text="${tag.name}">современная литература</a>
+            <a href="/tags/index.html" th:href="@{/books/tag-view(id=${tag.id})}" th:text="${tag.name}">современная литература</a>
         </div>
     </div>
 </div>

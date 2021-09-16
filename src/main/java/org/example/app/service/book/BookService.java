@@ -46,4 +46,19 @@ public class BookService {
         }
         return bookRepo.findAll(nextPage);
     }
+
+    public Page<Book> getBooksByTagId(Integer tagId, Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return bookRepo.findBooksByTagsId(tagId, nextPage);
+    }
+
+    public Page<Book> getBooksByAuthorId(Integer authorId, Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return bookRepo.findBooksByAuthorsId(authorId, nextPage);
+    }
+
+    public Page<Book> getBooksByGenreId(Integer genreId, Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return bookRepo.findBooksByGenresId(genreId, nextPage);
+    }
 }

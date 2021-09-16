@@ -26,12 +26,18 @@
             </h1>
             <div class="Section">
                 <div class="Tags Tags_genres">
-                    <div class="Tags">
-                        <div class="Tags-title">
-                            <div class="Tag"><a th:href="@{/genres/slug}" href="/genres/slug.html">Серьёзное чтение<span class="undefined-amount">(18)</span></a>
+                    <div class="Tags" th:each="genre : ${genreList}">
+                        <div class="Tags-title" th:if="${genre.parentGenre != null}">
+                            <div class="Tag">
+                                <a th:href="@{/genres/slug(id=${genre.parentGenre.id})}" href="/genres/slug.html" th:text="${genre.parentGenre.name}">Серьёзное чтение
+                                    <span class="undefined-amount" th:text="${genre.parentGenre.books.size()}">(18)</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="Tag" th:each="genre: ${genreList}"><a th:href="@{/genres/slug}" href="/genres/slug.html" th:text="${genre.name}">Биографии<span class="undefined-amount">(18)</span></a>
+                        <div class="Tag" th:each="subGenre: ${genre.subGenreList}">
+                            <a th:href="@{/genres/slug(id=${subGenre.id})}" href="/genres/slug.html" th:text="${subGenre.name}">Биографии
+                                <span class="undefined-amount" th:text="${subGenre.books.size()}">(18)</span>
+                            </a>
                         </div>
                     </div>
                 </div>

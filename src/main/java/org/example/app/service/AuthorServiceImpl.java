@@ -30,6 +30,11 @@ public class AuthorServiceImpl implements IAuthorService {
     }
 
     @Override
+    public Author getAuthorById(Integer id) {
+        return authorRepo.findAuthorsById(id);
+    }
+
+    @Override
     public void store(Author author) {
         authorRepo.save(author);
     }
