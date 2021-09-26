@@ -1,4 +1,4 @@
-package org.example.web.controller;
+package org.example.web.controller.book;
 
 import org.apache.log4j.Logger;
 import org.example.app.entity.book.Book;

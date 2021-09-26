@@ -69,4 +69,9 @@ public class BookService {
     public Book save(Book book) {
         return bookRepo.save(book);
     }
+
+    public List<Book> getBooksBySlugIn(String[] slugs){
+        return bookRepo.findBooksBySlugIn(slugs);
+
+    }
 }

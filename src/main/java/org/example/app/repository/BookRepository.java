@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
@@ -20,5 +21,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     Book findBookBySlug(String slug);
 
     Book save(Book book);
+
+    List<Book> findBooksBySlugIn(String[] slugs);
 
 }
