@@ -42,5 +42,10 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     @JsonIgnore
     private Set<Book> books;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
 

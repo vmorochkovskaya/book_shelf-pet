@@ -17,4 +17,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     Page<Book> findBooksByGenresId(Integer tagId, Pageable p);
 
+    Book findBookBySlug(String slug);
+
+    Book save(Book book);
+
 }

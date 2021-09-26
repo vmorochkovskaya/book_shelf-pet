@@ -61,4 +61,12 @@ public class BookService {
         Pageable nextPage = PageRequest.of(offset, limit);
         return bookRepo.findBooksByGenresId(genreId, nextPage);
     }
+
+    public Book getBookBySlug(String slug) {
+        return bookRepo.findBookBySlug(slug);
+    }
+
+    public Book save(Book book) {
+        return bookRepo.save(book);
+    }
 }

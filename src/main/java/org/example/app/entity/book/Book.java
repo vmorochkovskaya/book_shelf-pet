@@ -43,7 +43,7 @@ public class Book {
     @Column(name = "is_bestseller",
             columnDefinition = "SMALLINT NOT NULL")
 //  книга очень популярна, является бестселлером
-    private Boolean isBestseller;
+    private Integer isBestseller;
 
     @Column(columnDefinition = "INT NOT NULL")
 //  цена в рублях основная
