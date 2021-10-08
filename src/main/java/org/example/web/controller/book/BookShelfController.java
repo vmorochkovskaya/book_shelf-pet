@@ -2,6 +2,7 @@ package org.example.web.controller.book;
 
 import org.apache.log4j.Logger;
 import org.example.app.entity.book.Book;
+import org.example.app.entity.enums.Rating;
 import org.example.app.entity.tag.Tag;
 import org.example.app.service.ResourceStorage;
 import org.example.app.service.TagService;
@@ -14,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -46,8 +49,22 @@ public class BookShelfController {
     public String bookPage(@PathVariable("slug") String slug, Model model) {
         logger.info(String.format("got book by %1$s slug", slug));
         Book book = bookService.getBookBySlug(slug);
+        Map<Rating, Long> mapOfRatings = bookService.getCountOfUsersMarkedBookPerRate(slug);
         model.addAttribute("slugBook", book);
+        model.addAttribute("countOfOneStar", mapOfRatings.get(Rating.ONE));
+        model.addAttribute("countOfTwoStars", mapOfRatings.get(Rating.TWO));
+        model.addAttribute("countOfThreeStars", mapOfRatings.get(Rating.THREE));
+        model.addAttribute("countOfFourStars", mapOfRatings.get(Rating.FOUR));
+        model.addAttribute("countOfFiveStars", mapOfRatings.get(Rating.FIVE));
+        model.addAttribute("ratingValue", booksRatingAndPopularityService.countBookRating(slug));
+        model.addAttribute("reviewList", bookService.getBookReviews(slug));
         return "/books/slug";
+    }
+
+    @ResponseBody
+    @PostMapping("/bookReview")
+    public void saveBookReview(@RequestParam("bookId") String slug, @RequestParam("text") String text, HttpServletResponse response, Model model) {
+        bookService.updateBookWithReview(slug, text);
     }
 
     @PostMapping("/books/{slug}/img/save")
@@ -122,6 +139,12 @@ public class BookShelfController {
     public BooksPageDto getNextBooksByTag(@RequestParam("offset") Integer offset,
                                           @RequestParam("limit") Integer limit, @PathVariable(value = "id") Integer id) {
         return new BooksPageDto(bookService.getBooksByTagId(id, offset, limit).getContent());
+    }
+
+    @PostMapping("/books/changeBookRating")
+    @ResponseBody
+    public void changeBookRating(@RequestParam("bookId") String slug, @RequestParam("value") String value) {
+        booksRatingAndPopularityService.saveBookRate(slug, value);
     }
 
     @ModelAttribute("bookList")

@@ -68,4 +68,10 @@
     <changeSet author="VMOROCHKOVSKAYA" id="42">
         <sqlFile path="sql/data/book/file/book_file_type_more.sql"/>
     </changeSet>
+    <changeSet author="VMOROCHKOVSKAYA" id="43">
+        <sqlFile path="sql/data/book/rate.sql"/>
+    </changeSet>
+    <changeSet author="VMOROCHKOVSKAYA" id="44">
+        <sqlFile path="sql/data/book/link/book2rate.sql"/>
+    </changeSet>
 </databaseChangeLog>

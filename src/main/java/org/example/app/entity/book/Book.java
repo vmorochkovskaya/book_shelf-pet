@@ -125,4 +125,11 @@ public class Book {
     @OneToMany(mappedBy = "book")
     @JsonIgnore
     private List<BookReview> bookReviewList;
+
+    @ManyToMany
+    @JoinTable(name = "book2rate",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "rate_id"))
+    @JsonIgnore
+    private List<Rate> rates;
 }

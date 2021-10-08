@@ -25,5 +25,7 @@
     <include  file="db/changelog/other/document.xml"/>
     <include  file="db/changelog/other/faq.xml"/>
     <include  file="db/changelog/book/book_add_statistic_columns.xml"/>
+    <include  file="db/changelog/book/rate.xml"/>
+    <include  file="db/changelog/book/link/book2rate.xml"/>
     <include  file="db/changelog/liquibase-outputChangeLog_init.xml"/>
 </databaseChangeLog>

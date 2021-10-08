@@ -19,7 +19,7 @@ public class CartService {
         this.cookieService = cookieService;
     }
 
-    public void addCartCookie(String content, String slug, HttpServletResponse response, Model model) {
-        cookieService.addCookie(CookieType.CART, content, slug, response, model);
+    public void addCartCookie(String content, String bookIds, HttpServletResponse response, Model model) {
+        cookieService.addBookToCookie(CookieType.CART, content, bookIds, response, model);
     }
 }

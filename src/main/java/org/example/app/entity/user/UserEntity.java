@@ -2,6 +2,7 @@ package org.example.app.entity.user;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import lombok.*;
@@ -10,7 +11,6 @@ import org.example.app.entity.book.review.BookReviewLike;
 import org.example.app.entity.book.review.Message;
 
 @Data
-@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,7 +53,7 @@ public class UserEntity {
 
     @ManyToMany(mappedBy = "usersBookReviews")
 //  список книг о которых пользователь оставил отзывы
-    private Set<Book> booksReviews;
+    private List<Book> booksReviews;
 
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

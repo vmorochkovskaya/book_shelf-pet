@@ -1,8 +1,6 @@
 package org.example.app.service.cookie;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
 
 @AllArgsConstructor
 public enum CookieType {

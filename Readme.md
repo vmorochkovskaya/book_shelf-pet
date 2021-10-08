@@ -22,4 +22,4 @@ Java, maven, Spring boot, Spring JPA, liquibase, postgre database, thymeleaf
 2. - For windows execute scripts/run.cmd
    - For linux execute scripts/run.sh
 3. Deploy war file
-4. Open localhost:8087
+4. Open localhost:8085

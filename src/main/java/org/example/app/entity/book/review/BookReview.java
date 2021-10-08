@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +18,7 @@ import java.util.List;
 public class BookReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT NOT NULL AUTO_INCREMENT")
     private Integer id;
 
     @Column(columnDefinition = "TEXT NOT NULL")
@@ -43,4 +43,11 @@ public class BookReview {
 
     @OneToMany(mappedBy = "bookReview")
     private List<BookReviewLike> bookReviewLikeList;
+
+    public BookReview(String text, LocalDateTime time, UserEntity user, Book book) {
+        this.text = text;
+        this.time = time;
+        this.user = user;
+        this.book = book;
+    }
 }
