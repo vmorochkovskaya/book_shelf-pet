@@ -20,7 +20,7 @@
                               </g>
                             </g>
                           </svg></span>
-                    <span class="Rating-star" th:each="i : ${#numbers.sequence(0, 5 - ratingValue - 1)}">
+                    <span class="Rating-star" th:if="${(5 - ratingValue) > 0}" th:each="i : ${#numbers.sequence(0, 5 - ratingValue - 1)}">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                             <g>
                               <g>
