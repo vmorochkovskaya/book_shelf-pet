@@ -63,8 +63,8 @@ public class BookShelfController {
 
     @ResponseBody
     @PostMapping("/bookReview")
-    public void saveBookReview(@RequestParam("bookId") String slug, @RequestParam("text") String text, HttpServletResponse response, Model model) {
-        bookService.updateBookWithReview(slug, text);
+    public void saveBookReview(@RequestBody Map<String, String> bookMap, HttpServletResponse response, Model model) {
+        bookService.updateBookWithReview(bookMap.get("bookId"), bookMap.get("text"));
     }
 
     @PostMapping("/books/{slug}/img/save")
@@ -143,8 +143,8 @@ public class BookShelfController {
 
     @PostMapping("/books/changeBookRating")
     @ResponseBody
-    public void changeBookRating(@RequestParam("bookId") String slug, @RequestParam("value") String value) {
-        booksRatingAndPopularityService.saveBookRate(slug, value);
+    public void changeBookRating(@RequestBody Map<String, String> bookMap) {
+        booksRatingAndPopularityService.saveBookRate(bookMap.get("bookId"), bookMap.get("value"));
     }
 
     @ModelAttribute("bookList")

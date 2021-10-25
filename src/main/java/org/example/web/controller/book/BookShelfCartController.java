@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -52,15 +53,16 @@ public class BookShelfCartController {
 
     @ResponseBody
     @PostMapping("/changeBookStatus/{slug}")
-    public void saveNewBookImage(@PathVariable("slug") String slug, @RequestParam("status") Book2UserTypeEnum status,
+    public void saveNewBookImage(@PathVariable("slug") String slug,
                                  @CookieValue(name = "cartContents", required = false) String cartContents,
                                  @CookieValue(name = "postponedContents", required = false) String postponedContents,
-                                 @RequestParam("booksIds") String bookIds,
+                                 @RequestBody Map<String, String> bookMap,
                                  HttpServletResponse response, Model model) {
+        Book2UserTypeEnum status = Book2UserTypeEnum.valueOf(bookMap.get("status"));
         switch (status) {
             case CART:
                 System.out.println("CART");
-                cartService.addCartCookie(cartContents, bookIds, response, model);
+                cartService.addCartCookie(cartContents, bookMap.get("booksIds"), response, model);
                 break;
             case KEPT:
                 System.out.println("KEPT");

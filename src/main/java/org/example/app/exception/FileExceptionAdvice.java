@@ -1,7 +1,6 @@
 package org.example.app.exception;
 
 import org.apache.log4j.Logger;
-import org.example.web.controller.RegisterController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,7 +9,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class FileExceptionAdvice extends ResponseEntityExceptionHandler {
-    private final Logger logger = Logger.getLogger(RegisterController.class);
+    private final Logger logger = Logger.getLogger(FileExceptionAdvice.class);
 
     @ExceptionHandler(FileNotFoundException.class)
     public ResponseEntity<Object> handleFileNotFoundException(FileNotFoundException exc) {
