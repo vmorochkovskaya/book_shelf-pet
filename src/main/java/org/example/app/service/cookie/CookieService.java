@@ -1,7 +1,6 @@
 package org.example.app.service.cookie;
 
 import org.apache.log4j.Logger;
-import org.example.web.controller.LoginController;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -13,7 +12,7 @@ import java.util.StringJoiner;
 
 @Service
 public class CookieService implements ICookieService {
-    private final Logger logger = Logger.getLogger(LoginController.class);
+    private final Logger logger = Logger.getLogger(CookieService.class);
     private final String cookiePath = "/";
 
     @Override

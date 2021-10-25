@@ -1,7 +1,6 @@
 package org.example.app.service;
 
 import org.apache.log4j.Logger;
-import org.example.web.controller.RegisterController;
 import org.example.web.dto.FileDataDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class FileSystemStorageServiceImpl implements IFileSystemStorageService {
     private final Path dirLocation;
-    private final Logger logger = Logger.getLogger(RegisterController.class);
+    private final Logger logger = Logger.getLogger(FileSystemStorageServiceImpl.class);
     private static final int AMOUNT_OF_BYTES_TO_READ = 4096;
 
     @Autowired

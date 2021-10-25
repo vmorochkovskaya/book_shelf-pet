@@ -39,6 +39,15 @@ public class UserEntity {
 //  дата и время регистрации
     private LocalDateTime regTime;
 
+    @Column(name = "password", columnDefinition = "VARCHAR(255) NOT NULL")
+    private String password;
+
+    @Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
+    private String email;
+
+    @Column(name = "phone", columnDefinition = "VARCHAR(255) NOT NULL")
+    private String phone;
+
     @ManyToMany(mappedBy = "users")
 //  список книг имеющих связь с данным пользователем
     private Set<Book> books;
