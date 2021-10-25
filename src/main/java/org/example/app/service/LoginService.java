@@ -24,12 +24,12 @@ public class LoginService {
     }
 
     public boolean authenticate(LoginFormDto loginFrom) {
-        logger.info("try auth with user-form: " + loginFrom);
-        for(RegisterFormDto user : userRepo.retrieveAll()){
-            if(loginFrom.getUsername().equals(user.getUsername()) && loginFrom.getPassword().equals(user.getPassword())){
-                return true;
-            }
-        }
+//        logger.info("try auth with user-form: " + loginFrom);
+//        for(RegisterFormDto user : userRepo.retrieveAll()){
+//            if(loginFrom.getUsername().equals(user.getUsername()) && loginFrom.getPassword().equals(user.getPassword())){
+//                return true;
+//            }
+//        }
         return false;
     }
 
