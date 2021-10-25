@@ -1,7 +1,7 @@
 <h1 align="center">Book store</h1>
 
 ## Technologies
-Java, maven, Spring boot, Spring JPA, liquibase, postgre database, thymeleaf
+Java, maven, Spring boot, Spring JPA, Spring security, liquibase, postgre database, thymeleaf
 
 ## Description
 - Navigation menu is available and works on all pages. All provided links and buttons work and lead to valid pages. 
