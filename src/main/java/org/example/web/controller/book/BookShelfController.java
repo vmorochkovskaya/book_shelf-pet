@@ -45,22 +45,6 @@ public class BookShelfController {
         return "index";
     }
 
-    @GetMapping("/books/{slug}")
-    public String bookPage(@PathVariable("slug") String slug, Model model) {
-        logger.info(String.format("got book by %1$s slug", slug));
-        Book book = bookService.getBookBySlug(slug);
-        Map<Rating, Long> mapOfRatings = bookService.getCountOfUsersMarkedBookPerRate(slug);
-        model.addAttribute("slugBook", book);
-        model.addAttribute("countOfOneStar", mapOfRatings.get(Rating.ONE));
-        model.addAttribute("countOfTwoStars", mapOfRatings.get(Rating.TWO));
-        model.addAttribute("countOfThreeStars", mapOfRatings.get(Rating.THREE));
-        model.addAttribute("countOfFourStars", mapOfRatings.get(Rating.FOUR));
-        model.addAttribute("countOfFiveStars", mapOfRatings.get(Rating.FIVE));
-        model.addAttribute("ratingValue", booksRatingAndPopularityService.countBookRating(slug));
-        model.addAttribute("reviewList", bookService.getBookReviews(slug));
-        return "/books/slug";
-    }
-
     @ResponseBody
     @PostMapping("/bookReview")
     public void saveBookReview(@RequestBody Map<String, String> bookMap, HttpServletResponse response, Model model) {
@@ -87,8 +71,10 @@ public class BookShelfController {
         return "books/author";
     }
 
-    @GetMapping("/books/popular-view")
+    @GetMapping("/books/popularview")
     public String booksPopular() {
+        System.out.println("9858309584305");
+
         return "books/popular";
     }
 
@@ -139,6 +125,23 @@ public class BookShelfController {
     public BooksPageDto getNextBooksByTag(@RequestParam("offset") Integer offset,
                                           @RequestParam("limit") Integer limit, @PathVariable(value = "id") Integer id) {
         return new BooksPageDto(bookService.getBooksByTagId(id, offset, limit).getContent());
+    }
+
+    @GetMapping("/books/{slug}**")
+    public String bookPage(@PathVariable("slug") String slug, Model model) {
+        System.out.println("ieoiwoeiqwpei");
+        logger.info(String.format("got book by %1$s slug", slug));
+        Book book = bookService.getBookBySlug(slug);
+        Map<Rating, Long> mapOfRatings = bookService.getCountOfUsersMarkedBookPerRate(slug);
+        model.addAttribute("slugBook", book);
+        model.addAttribute("countOfOneStar", mapOfRatings.get(Rating.ONE));
+        model.addAttribute("countOfTwoStars", mapOfRatings.get(Rating.TWO));
+        model.addAttribute("countOfThreeStars", mapOfRatings.get(Rating.THREE));
+        model.addAttribute("countOfFourStars", mapOfRatings.get(Rating.FOUR));
+        model.addAttribute("countOfFiveStars", mapOfRatings.get(Rating.FIVE));
+        model.addAttribute("ratingValue", booksRatingAndPopularityService.countBookRating(slug));
+        model.addAttribute("reviewList", bookService.getBookReviews(slug));
+        return "/books/slug";
     }
 
     @PostMapping("/books/changeBookRating")

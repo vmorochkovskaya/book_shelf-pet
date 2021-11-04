@@ -1,28 +1,32 @@
 package org.example.web.controller;
 
-import org.example.app.entity.author.Author;
+import org.example.app.entity.InvalidatedToken;
 import org.example.app.security.ContactConfirmationPayload;
 import org.example.app.security.ContactConfirmationResponse;
+import org.example.app.service.token.IInvalidatedTokenService;
 import org.example.app.service.user.BookstoreUserRegister;
 import org.example.web.dto.RegisterFormDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Controller
 public class AuthUserController {
 
     private final BookstoreUserRegister userRegister;
+    private final IInvalidatedTokenService invalidatedTokenService;
 
     @Autowired
-    public AuthUserController(BookstoreUserRegister userRegister) {
+    public AuthUserController(BookstoreUserRegister userRegister, IInvalidatedTokenService invalidatedTokenService) {
         this.userRegister = userRegister;
+        this.invalidatedTokenService = invalidatedTokenService;
     }
 
     @GetMapping("/signin")
@@ -61,8 +65,11 @@ public class AuthUserController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public ContactConfirmationResponse handleLogin(@RequestBody ContactConfirmationPayload payload) {
-        return userRegister.login(payload);
+    public ContactConfirmationResponse handleLogin(@RequestBody ContactConfirmationPayload payload, HttpServletResponse httpServletResponse) {
+        ContactConfirmationResponse loginResponse = userRegister.jwtLogin(payload);
+        Cookie cookie = new Cookie("token", loginResponse.getResult());
+        httpServletResponse.addCookie(cookie);
+        return loginResponse;
     }
 
     @GetMapping("/my")
@@ -77,16 +84,14 @@ public class AuthUserController {
         return "profile";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/log-out")
     public String handleLogout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        SecurityContextHolder.clearContext();
-        if (session != null) {
-            session.invalidate();
-        }
         for (Cookie cookie : request.getCookies()) {
             cookie.setMaxAge(0);
         }
-        return "redirect:/";
+        Optional<Cookie> token = Arrays.stream(request.getCookies()).filter((Cookie value) ->
+                value.getName().equals("token")).findFirst();
+        token.ifPresent(cookie -> invalidatedTokenService.addToBlackList(new InvalidatedToken(cookie.getValue())));
+        return "signin";
     }
 }

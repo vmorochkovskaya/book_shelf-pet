@@ -25,6 +25,7 @@ public class BookstoreUserDetailsService implements UserDetailsService {
         if (bookstoreUser != null) {
             return new BookstoreUserDetails(bookstoreUser);
         } else {
+            System.out.println("UsernameNotFoundException occured");
             throw new UsernameNotFoundException("user not found doh!");
         }
     }
