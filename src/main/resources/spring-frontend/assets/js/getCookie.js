@@ -6,7 +6,9 @@ $("document").ready(function () {
 function setPostponedItemsAmountIcon() {
     const cookiePostponed = Cookies.get('postponedContents');
     const postponedSlugsAmount = !cookiePostponed ? 0 : cookiePostponed.split("/").length;
-    $("#postponedAmount").text(postponedSlugsAmount);
+    $(".postponedAmount").each(function(){
+        $(this).text(postponedSlugsAmount);
+    });
 }
 
 function setCartItemsAmountIcon() {

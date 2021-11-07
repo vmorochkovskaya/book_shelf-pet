@@ -5,6 +5,8 @@ import org.example.app.repository.InvalidatedTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InvalidatedTokenServiceImpl implements IInvalidatedTokenService {
     private final InvalidatedTokenRepository invalidatedTokenRepository;
@@ -16,9 +18,11 @@ public class InvalidatedTokenServiceImpl implements IInvalidatedTokenService {
 
     @Override
     public void addToBlackList(InvalidatedToken token) {
-        System.out.println("ieoiepoqwe");
         invalidatedTokenRepository.save(token);
-        System.out.println(invalidatedTokenRepository.findAll().get(0).getId());
+    }
 
+    @Override
+    public List<InvalidatedToken> getAllTokens() {
+        return invalidatedTokenRepository.findAll();
     }
 }

@@ -1,7 +1,7 @@
 <h1 align="center">Book store</h1>
 
 ## Technologies
-Java, maven, Spring boot, Spring JPA, Spring security, liquibase, postgre database, thymeleaf
+Java, maven, Spring boot, Spring JPA, Spring security, liquibase, postgre database, redis, thymeleaf
 
 ## Description
 - Navigation menu is available and works on all pages. All provided links and buttons work and lead to valid pages. 
@@ -18,8 +18,15 @@ Java, maven, Spring boot, Spring JPA, Spring security, liquibase, postgre databa
 
 
 ## How to run
-1. Update spring.datasource.url, spring.datasource.username, spring.datasource.password in resource/application.properties file with your url, username and password accordingly.
-2. - For windows execute scripts/run.cmd
+1. Update 
+   **spring.datasource.url**, 
+   **spring.datasource.username**, 
+   **spring.datasource.password** in resource/application.properties file with your url, username and password accordingly.
+2. Specify  
+   **spring.security.oauth2.client.registration.github.client-id**,
+   **spring.security.oauth2.client.registration.github.client-secret** in resource/application.properties file with your client id, client secret accordingly.
+3. Start redis server   
+4. - For windows execute scripts/run.cmd
    - For linux execute scripts/run.sh
-3. Deploy war file
-4. Open localhost:8085
+5. Deploy war file
+4. Open localhost:8087

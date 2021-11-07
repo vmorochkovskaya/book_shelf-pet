@@ -19,8 +19,14 @@
 <!--    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>-->
 </head>
 <body class="Site">
-<header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized')}"></header>
+<div th:if="${curUsr == null}">
+    <header class="Header"
+            th:replace="~{fragments/common_header_fragment :: head(main='menu-item menu-item_ACTIVE', status='unauthorized')}"></header>
+</div>
+<div th:if="${curUsr != null}">
+    <header class="Header"
+            th:replace="~{fragments/common_header_fragment :: head(main='menu-item menu-item_ACTIVE', status='authorized')}"></header>
+</div>
 <div class="Middle">
     <div class="wrap">
         <main class="Middle-main">

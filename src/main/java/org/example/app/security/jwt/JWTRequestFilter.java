@@ -1,5 +1,7 @@
 package org.example.app.security.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import org.apache.log4j.Logger;
 import org.example.app.entity.InvalidatedToken;
 import org.example.app.repository.InvalidatedTokenRepository;
 import org.example.app.security.BookstoreUserDetails;
@@ -19,7 +21,7 @@ import java.io.IOException;
 
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter {
-
+    private final Logger logger = Logger.getLogger(JWTRequestFilter.class);
     private final BookstoreUserDetailsService bookstoreUserDetailsService;
     private final JWTUtil jwtUtil;
     private final InvalidatedTokenRepository invalidatedTokenRepository;
@@ -42,24 +44,28 @@ public class JWTRequestFilter extends OncePerRequestFilter {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     token = cookie.getValue();
-                    username = jwtUtil.extractUsername(token);
+                    try {
+                        username = jwtUtil.extractUsername(token);
+                    } catch (ExpiredJwtException e) {
+                        logger.warn("token has expired");
+                    }
                 }
+            }
 /**
  * user is not authenticated yet
  */
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    final String tokenToFindInRedis = token;
-                    BookstoreUserDetails userDetails =
-                            (BookstoreUserDetails) bookstoreUserDetailsService.loadUserByUsername(username);
-                    if (jwtUtil.validateToken(token, userDetails) && this.invalidatedTokenRepository.findAll().stream().noneMatch((InvalidatedToken x) ->
-                            x.getId().equals(tokenToFindInRedis))) {
-                        UsernamePasswordAuthenticationToken authenticationToken =
-                                new UsernamePasswordAuthenticationToken(
-                                        userDetails, null, userDetails.getAuthorities());
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                final String tokenToFindInRedis = token;
+                BookstoreUserDetails userDetails =
+                        (BookstoreUserDetails) bookstoreUserDetailsService.loadUserByUsername(username);
+                if (jwtUtil.validateToken(token, userDetails) && this.invalidatedTokenRepository.findAll().stream().noneMatch((InvalidatedToken x) ->
+                        x.getId().equals(tokenToFindInRedis))) {
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails, null, userDetails.getAuthorities());
 
-                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    }
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
         }

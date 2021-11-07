@@ -4,10 +4,14 @@ import org.apache.log4j.Logger;
 import org.example.app.entity.book.Book;
 import org.example.app.entity.enums.Rating;
 import org.example.app.entity.tag.Tag;
+import org.example.app.security.jwt.JWTUtil;
 import org.example.app.service.ResourceStorage;
 import org.example.app.service.TagService;
 import org.example.app.service.book.BookService;
 import org.example.app.service.book.BooksRatingAndPopularityService;
+import org.example.app.service.token.IInvalidatedTokenService;
+import org.example.app.service.user.BookstoreUserDetailsService;
+import org.example.app.service.user.BookstoreUserRegister;
 import org.example.web.dto.BooksPageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -29,14 +34,22 @@ public class BookShelfController {
     private final ResourceStorage resourceStorage;
     private final BooksRatingAndPopularityService booksRatingAndPopularityService;
     private final TagService tagService;
+    private final IInvalidatedTokenService invalidatedTokenService;
+    private final JWTUtil jwtUtil;
+    private final BookstoreUserDetailsService bookstoreUserDetailsService;
+    private final BookstoreUserRegister userRegister;
 
     @Autowired
     public BookShelfController(BookService bookService, BooksRatingAndPopularityService booksRatingAndPopularityService,
-                               TagService tagService, ResourceStorage resourceStorage) {
+                               TagService tagService, ResourceStorage resourceStorage, IInvalidatedTokenService invalidatedTokenService, JWTUtil jwtUtil, BookstoreUserDetailsService bookstoreUserDetailsService, BookstoreUserRegister userRegister) {
         this.bookService = bookService;
         this.booksRatingAndPopularityService = booksRatingAndPopularityService;
         this.tagService = tagService;
         this.resourceStorage = resourceStorage;
+        this.invalidatedTokenService = invalidatedTokenService;
+        this.jwtUtil = jwtUtil;
+        this.bookstoreUserDetailsService = bookstoreUserDetailsService;
+        this.userRegister = userRegister;
     }
 
     @GetMapping("/")
@@ -73,8 +86,6 @@ public class BookShelfController {
 
     @GetMapping("/books/popularview")
     public String booksPopular() {
-        System.out.println("9858309584305");
-
         return "books/popular";
     }
 
@@ -127,9 +138,8 @@ public class BookShelfController {
         return new BooksPageDto(bookService.getBooksByTagId(id, offset, limit).getContent());
     }
 
-    @GetMapping("/books/{slug}**")
-    public String bookPage(@PathVariable("slug") String slug, Model model) {
-        System.out.println("ieoiwoeiqwpei");
+    @GetMapping("/books/{slug}")
+    public String bookPage(@PathVariable("slug") String slug, Model model, HttpServletRequest request) {
         logger.info(String.format("got book by %1$s slug", slug));
         Book book = bookService.getBookBySlug(slug);
         Map<Rating, Long> mapOfRatings = bookService.getCountOfUsersMarkedBookPerRate(slug);
@@ -141,6 +151,9 @@ public class BookShelfController {
         model.addAttribute("countOfFiveStars", mapOfRatings.get(Rating.FIVE));
         model.addAttribute("ratingValue", booksRatingAndPopularityService.countBookRating(slug));
         model.addAttribute("reviewList", bookService.getBookReviews(slug));
+        if (isAuthenticated(request) != null) {
+            return "/books/slugmy";
+        }
         return "/books/slug";
     }
 
@@ -183,5 +196,10 @@ public class BookShelfController {
     @ModelAttribute("tags")
     public List<Tag> getAllTags() {
         return tagService.getAllTags();
+    }
+
+    @ModelAttribute("curUsr")
+    public Object isAuthenticated(HttpServletRequest request) {
+        return this.userRegister.getCurrentUser(request);
     }
 }

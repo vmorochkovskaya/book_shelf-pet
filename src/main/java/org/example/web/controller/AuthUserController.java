@@ -3,7 +3,9 @@ package org.example.web.controller;
 import org.example.app.entity.InvalidatedToken;
 import org.example.app.security.ContactConfirmationPayload;
 import org.example.app.security.ContactConfirmationResponse;
+import org.example.app.security.jwt.JWTUtil;
 import org.example.app.service.token.IInvalidatedTokenService;
+import org.example.app.service.user.BookstoreUserDetailsService;
 import org.example.app.service.user.BookstoreUserRegister;
 import org.example.web.dto.RegisterFormDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,15 @@ public class AuthUserController {
 
     private final BookstoreUserRegister userRegister;
     private final IInvalidatedTokenService invalidatedTokenService;
+    private final JWTUtil jwtUtil;
+    private final BookstoreUserDetailsService bookstoreUserDetailsService;
 
     @Autowired
-    public AuthUserController(BookstoreUserRegister userRegister, IInvalidatedTokenService invalidatedTokenService) {
+    public AuthUserController(BookstoreUserRegister userRegister, IInvalidatedTokenService invalidatedTokenService, JWTUtil jwtUtil, BookstoreUserDetailsService bookstoreUserDetailsService) {
         this.userRegister = userRegister;
         this.invalidatedTokenService = invalidatedTokenService;
+        this.jwtUtil = jwtUtil;
+        this.bookstoreUserDetailsService = bookstoreUserDetailsService;
     }
 
     @GetMapping("/signin")
@@ -65,7 +71,7 @@ public class AuthUserController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public ContactConfirmationResponse handleLogin(@RequestBody ContactConfirmationPayload payload, HttpServletResponse httpServletResponse) {
+    public ContactConfirmationResponse handleLogin(@RequestBody ContactConfirmationPayload payload, HttpServletResponse httpServletResponse, Model model) {
         ContactConfirmationResponse loginResponse = userRegister.jwtLogin(payload);
         Cookie cookie = new Cookie("token", loginResponse.getResult());
         httpServletResponse.addCookie(cookie);
