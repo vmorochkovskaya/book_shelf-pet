@@ -11,6 +11,8 @@ import org.example.app.entity.genre.Genre;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+
 import org.example.app.entity.tag.Tag;
 import org.example.app.entity.user.UserEntity;
 
@@ -57,11 +59,11 @@ public class Book {
 //  мнемонический идентификатор книги
     private String slug;
 
-    @Column(name= "number_users_bought_book", columnDefinition = "INT")
+    @Column(name = "number_users_bought_book", columnDefinition = "INT")
 //  количество пользователей, купивших книгу
     private Integer numberUsersBoughtBook;
 
-    @Column(name= "number_users_book_in_card", columnDefinition = "INT")
+    @Column(name = "number_users_book_in_card", columnDefinition = "INT")
 //  количество пользователей, у которых книга находится в корзине;
     private Integer numberUsersBookInCard;
 
@@ -132,4 +134,17 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "rate_id"))
     @JsonIgnore
     private List<Rate> rates;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return pubDate.equals(book.pubDate) && slug.equals(book.slug);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pubDate, slug);
+    }
 }

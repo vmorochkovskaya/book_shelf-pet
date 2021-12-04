@@ -47,7 +47,7 @@ public class BookstoreUserRegister {
         this.invalidatedTokenService = invalidatedTokenService;
     }
 
-    public void registerNewUser(RegisterFormDto registerFormDto) {
+    public UserEntity registerNewUser(RegisterFormDto registerFormDto) {
         if (userRepository.findUserByEmail(registerFormDto.getEmail()) == null) {
             UserEntity user = new UserEntity();
             user.setBalance(USER_DEFAULT_BALANCE);
@@ -58,7 +58,9 @@ public class BookstoreUserRegister {
             user.setPhone(registerFormDto.getPhone());
             user.setPassword(passwordEncoder.encode(registerFormDto.getPass()));
             userRepository.save(user);
+            return user;
         }
+        return null;
     }
 
     public ContactConfirmationResponse login(ContactConfirmationPayload payload) {

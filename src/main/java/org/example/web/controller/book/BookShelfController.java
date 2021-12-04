@@ -92,8 +92,8 @@ public class BookShelfController {
     @GetMapping("/books/recommended")
     @ResponseBody
     public BooksPageDto getBooksRecommendedPage(@RequestParam("offset") Integer offset,
-                                                @RequestParam("limit") Integer limit) {
-        return new BooksPageDto(bookService.getPageOfRecommendedBooks(offset, limit).getContent());
+                                                @RequestParam("limit") Integer limit, HttpServletRequest request) {
+        return new BooksPageDto(bookService.getPageOfRecommendedBooks(offset, limit, request.getCookies()));
     }
 
     @GetMapping("/books/recent")
@@ -142,6 +142,7 @@ public class BookShelfController {
     public String bookPage(@PathVariable("slug") String slug, Model model, HttpServletRequest request) {
         logger.info(String.format("got book by %1$s slug", slug));
         Book book = bookService.getBookBySlug(slug);
+        System.out.println(book.getPubDate());
         Map<Rating, Long> mapOfRatings = bookService.getCountOfUsersMarkedBookPerRate(slug);
         model.addAttribute("slugBook", book);
         model.addAttribute("countOfOneStar", mapOfRatings.get(Rating.ONE));
@@ -169,8 +170,8 @@ public class BookShelfController {
     }
 
     @ModelAttribute("recommendedBooks")
-    public List<Book> recommendedBooks() {
-        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+    public List<Book> recommendedBooks(HttpServletRequest request) {
+        return bookService.getPageOfRecommendedBooks(0, 6, request.getCookies());
     }
 
     @ModelAttribute("recentBooks")

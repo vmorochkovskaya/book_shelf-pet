@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RateRepository extends JpaRepository<Rate, Integer> {
 
-    List<Rate> findRatesByBooksSlug(String slug);
+    List<Rate> findByBooks_slug(String slug);
 
     Rate findRateByValue(Integer value);
 

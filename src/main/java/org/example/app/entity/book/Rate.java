@@ -41,4 +41,8 @@ public class Rate {
             this.value = rating.getValue();
         }
     }
+
+    public Rate(Integer value) {
+        this.value = value;
+    }
 }

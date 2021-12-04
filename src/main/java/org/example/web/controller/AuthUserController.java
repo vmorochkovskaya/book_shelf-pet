@@ -63,7 +63,7 @@ public class AuthUserController {
     }
 
     @PostMapping("/reg")
-    public String handleUserRegistration(RegisterFormDto registrationForm, Model model) {
+    public String handleUserRegistration(@RequestBody RegisterFormDto registrationForm, Model model) {
         userRegister.registerNewUser(registrationForm);
         model.addAttribute("regOk", true);
         return "signin";
@@ -71,7 +71,7 @@ public class AuthUserController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public ContactConfirmationResponse handleLogin(@RequestBody ContactConfirmationPayload payload, HttpServletResponse httpServletResponse, Model model) {
+    public ContactConfirmationResponse handleLogin(@RequestBody ContactConfirmationPayload payload, HttpServletResponse httpServletResponse) {
         ContactConfirmationResponse loginResponse = userRegister.jwtLogin(payload);
         Cookie cookie = new Cookie("token", loginResponse.getResult());
         httpServletResponse.addCookie(cookie);

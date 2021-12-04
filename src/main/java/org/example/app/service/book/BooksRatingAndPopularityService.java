@@ -40,7 +40,7 @@ public class BooksRatingAndPopularityService {
     }
 
     public int countBookRating(String slug) {
-        List<Rate> bookGrades = bookRepo.findBookBySlug(slug).getRates();
+        List<Rate> bookGrades = rateRepository.findByBooks_slug(slug);
         return bookGrades.size() == 0 ? 0 : Math.round(bookGrades.stream().map(Rate::getValue).reduce(0, Integer::sum) / bookGrades.size());
     }
 

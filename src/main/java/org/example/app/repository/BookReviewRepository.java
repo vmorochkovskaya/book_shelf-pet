@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface BookReviewRepository extends JpaRepository<BookReview, Integer> {
 
-    List<BookReview> findBookReviewsByBook_Slug(String slug);
+    List<BookReview> findBookReviewsByBookSlug(String slug);
 }
