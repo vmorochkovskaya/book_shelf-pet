@@ -4,11 +4,13 @@ import org.apache.log4j.Logger;
 import org.example.app.entity.genre.Genre;
 import org.example.app.service.IGenreService;
 import org.example.app.service.book.BookService;
+import org.example.app.service.user.BookstoreUserRegister;
 import org.example.web.dto.BooksPageDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +21,12 @@ public class GenreController {
     private Logger logger = Logger.getLogger(GenreController.class);
     private final IGenreService genreService;
     private final BookService bookService;
+    private final BookstoreUserRegister userRegister;
 
-    public GenreController(IGenreService genreService, BookService bookService) {
+    public GenreController(IGenreService genreService, BookService bookService, BookstoreUserRegister userRegister) {
         this.genreService = genreService;
         this.bookService = bookService;
+        this.userRegister = userRegister;
     }
 
     @GetMapping("/genres")
@@ -50,5 +54,10 @@ public class GenreController {
     @ModelAttribute("genreList")
     public List<Genre> authorList() {
         return genreService.getAllGenres();
+    }
+
+    @ModelAttribute("curUsr")
+    public Object isAuthenticated(HttpServletRequest request) {
+        return this.userRegister.getCurrentUser(request);
     }
 }

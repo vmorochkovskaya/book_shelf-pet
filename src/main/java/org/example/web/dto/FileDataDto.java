@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
-@ToString
 @RequiredArgsConstructor
 public class FileDataDto {
     private String id;
